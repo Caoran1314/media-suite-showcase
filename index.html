@@ -397,11 +397,7 @@ footer .sp{flex:1}
   <p class="p">下面这条链路是真实跑的：每一步都能在面板上看到状态，卡在哪一步也有记录。</p>
   <div class="flowcard">
     <div class="glowtop"></div>
-    <div class="flowhead"><span class="dotc"></span><b>完整链路</b><span>· 平均 3~8 分钟 · 入库方式自动适配：有 CMS 用 CMS，没有用直连</span></div>
-    <div class="modes">
-      <span class="mode on"><b>模式 A · CMS</b>115 + CMS + Emby，整理命名交给 CMS</span>
-      <span class="mode"><b>模式 B · 直连</b>115 + Emby，不装 CMS，自己整理</span>
-    </div>
+    <div class="flowhead"><span class="dotc"></span><b>完整链路</b><span>· 平均 3~8 分钟 · 入库全程交给 CMS：接收、识别、重命名、strm、刷新 Emby</span></div>
     <div class="flow">
       <div class="fstep"><div class="fnum">01</div><b>你说片名</b><span>面板 / TG / 飞书，或从 TMDB 榜单点订阅</span>
         <div class="fchips"><span class="fchip t">怪奇物语</span><span class="fchip">S05</span></div></div>
@@ -411,13 +407,13 @@ footer .sp{flex:1}
         <div class="fchips"><span class="fchip t">115</span><span class="fchip">其他网盘*</span></div></div>
       <div class="fstep"><div class="fnum">04</div><b>评分排序</b><span>分辨率/片源/HDR/体积加权，合集降权</span>
         <div class="fchips"><span class="fchip">2160p 9.4</span><span class="fchip">1080p 7.1</span></div></div>
-      <div class="fstep" id="step05"><div class="fnum">05</div><b>回序号转存</b><span>你回「1」即转存，再按当前后端整理入库（CMS 或直连）</span>
-        <div class="fchips"><span class="fchip t">CMS 整理</span><span class="fchip">或 直连整理</span></div></div>
+      <div class="fstep" id="step05"><div class="fnum">05</div><b>回序号转存</b><span>你回「1」即转存，CMS 接收后整理入库</span>
+        <div class="fchips"><span class="fchip t">CMS 转存</span><span class="fchip">自动整理</span></div></div>
       <div class="fstep"><div class="fnum">06</div><b>Emby 可播</b><span>媒体库刷新，手机/电视/Infuse 直接放</span>
         <div class="fchips"><span class="fchip">自动刷新</span><span class="fchip">302 直连</span></div></div>
     </div>
     <div class="fbar">
-      <em>你只需要做第 1 步和第 5 步；中间 2~4 全自动，第 6 步自动完成（转存后端 auto 自动选）</em>
+      <em>你只需要做第 1 步和第 5 步；中间 2~4 全自动，第 6 步由 CMS 自动完成</em>
       <div class="track"><div class="runner"></div></div>
       <em>失败会记在「事件」里；* 为可插拔、待接入的来源</em>
     </div>
@@ -489,7 +485,7 @@ footer .sp{flex:1}
   <div>
     <div style="font-size:11px;letter-spacing:.2em;color:var(--accent);margin-bottom:8px">SELF-HOSTED · DOCKER</div>
     <div style="font-size:23px;font-weight:700;letter-spacing:-.2px">一个容器，跑在你自己 NAS 上</div>
-    <div style="color:var(--fg2);margin-top:6px;font-size:14px">docker pull caowenrui/media-suite:2.1.0　·　免费版可用，永久版 ¥66 一次买断</div>
+    <div style="color:var(--fg2);margin-top:6px;font-size:14px">docker pull caowenrui/media-suite:2.3.1　·　免费版可用，永久版 ¥66 一次买断</div>
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap">
     <a class="btn pri" href="https://github.com/Caoran1314/media-suite-showcase/blob/main/docs/TUTORIAL.md">GitHub 文档</a>
@@ -596,38 +592,6 @@ footer .sp{flex:1}
     step();
   }
 
-  /* ---------- 3. 入库模式 A/B 切换 ---------- */
-  const modes = document.querySelectorAll('.mode');
-  const step05 = document.getElementById('step05');
-  const MODES = {
-    cms: {
-      title: '回序号转存',
-      desc: '你回「1」即转存；CMS 负责整理、重命名与 strm 生成',
-      chips: ['CMS 整理', 'Season 05']
-    },
-    direct: {
-      title: '回序号转存',
-      desc: '你回「1」即转存；程序自己移动、命名并整理进 115（不装 CMS，Emby 需自挂 115）',
-      chips: ['直连整理', 'S05E06.mkv']
-    }
-  };
-  if (modes.length && step05) {
-    modes.forEach(function (el, n) {
-      el.addEventListener('click', function () {
-        modes.forEach(function (x) { x.classList.remove('on'); });
-        el.classList.add('on');
-        const cfg = n === 0 ? MODES.cms : MODES.direct;
-        const b = step05.querySelector('b');
-        const sp = step05.querySelector('span');
-        const chips = step05.querySelector('.fchips');
-        if (b) b.textContent = cfg.title;
-        if (sp) sp.textContent = cfg.desc;
-        if (chips) chips.innerHTML = cfg.chips.map(function (c, i) {
-          return '<span class="fchip' + (i === 0 ? ' t' : '') + '">' + c + '</span>';
-        }).join('');
-      });
-    });
-  }
   /* ---------- 3. 滚动显现 + 卡片光斑 ---------- */
   const io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });

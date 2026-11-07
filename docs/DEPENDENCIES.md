@@ -35,13 +35,13 @@ media-suite 自己**不下载、不转存、不刮削**，它只做「找资源 
 | 服务 | 是否必需 | 作用 | 本项目怎么用它 |
 |---|---|---|---|
 | **pansou** | 可选（建议） | 聚合搜索网盘分享；不填时用内置自研源 TG115 | `PANSOU_BASE_URL` |
-| **Cloud Media Sync (CMS)** | 路线 A 必需；路线 B 不用 | 把 115 分享转存、自动整理命名、生成 strm、302 直链 | `CMS_BASE_URL` + `CMS_API_TOKEN` |
-| **115 网盘** | ✅ 必需 | 资源落地的地方 | 路线 A 由 CMS 持有 cookie；路线 B 由本项目的 115 扫码持有 |
-| **Emby / Jellyfin** | 建议 | 播放端 | 路线 A 读 CMS 生成的 strm；路线 B 需自行挂载 115 |
+| **Cloud Media Sync (CMS)** | ✅ 必需 | 把 115 分享转存、自动整理命名、生成 strm、刷新 Emby | `CMS_BASE_URL` + `CMS_API_TOKEN` |
+| **115 网盘** | ✅ 必需 | 资源落地的地方 | 由 CMS 持有 115 账号与 cookie |
+| **Emby / Jellyfin** | 建议 | 播放端 | 读 CMS 生成的 strm；填 `EMBY_URL` + `EMBY_API_KEY` 用于统计与跳转 |
 | **MoviePilot** | 可选 | 订阅中心（如果你习惯在 MP 里订阅） | 开启后从 MP 读订阅列表 |
 
-> **最小可用组合（路线 A）**：`pansou` + `Cloud Media Sync` + `115`。
-> **不装 CMS（路线 B）**：`pansou` + 115 + 一个 115→Emby 的挂载方案，部署步骤见 [TUTORIAL.md](TUTORIAL.md) 的「路线 B」。
+> **最小可用组合**：`pansou` + `Cloud Media Sync` + `115`。
+> CMS 是硬依赖：没有 CMS，FilmShelf 无法转存。
 > 不装 MoviePilot 也能用（订阅直接加在 media-suite 面板里）；不装 Emby 也能入库（只是没法看）。
 
 ---
@@ -85,9 +85,9 @@ PANSOU_BASE_URL: http://<你的pansou>:3200    # 可选，建议填
 
 ---
 
-## 四、Cloud Media Sync（路线 A：转存 + 整理 + strm）
+## 四、Cloud Media Sync（转存 + 整理 + strm）
 
-> 本章只适用于**路线 A（有 CMS）**。没有 CMS、想用内置直转，请看 [TUTORIAL.md](TUTORIAL.md) 的「路线 B」；两条路线的区别见该文开头的对照表。
+> CMS 是 FilmShelf 的必需依赖。这一章配好，整条链路才能通。
 
 这是整条链路里配置最多的一环，但配好一次就长期稳定。
 

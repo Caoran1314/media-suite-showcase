@@ -1,5 +1,44 @@
 # 更新日志
 
+## v2.3.1（2026-11-07）
+
+- 修复：全新部署首次激活授权时报「服务端未配置授权公钥」——现在激活前会从发卡服务 /pubkey 自动获取并缓存到 data/license-public.pem（也仍支持 LICENSE_PUBLIC_KEY 环境变量覆盖）。
+- 文档：docker-compose.yml 镜像版本更新为 2.3.1。
+
+## v2.3.0 — 2026-11-07
+
+### 定位收敛：CMS 成为必需依赖
+
+- 移除内置 115 直转（`direct115` / `strm115` / 播放代理 `/strm/play` / `api/direct115/*` / `tests/strm.test.js`）。
+- 转存、整理、strm 生成、Emby 刷新全部交给 Cloud Media Sync；FilmShelf 只做发现、订阅、候选、通知与账号授权。
+- 未配置 `CMS_BASE_URL` / `CMS_API_TOKEN` 时，`POST /api/transfer` 直接返回 400（`needCms`），不再静默回退。
+- 设置页移除「转存后端」「strm 输出目录」「strm 访问地址」三项；`TRANSFER_BACKEND` / `DIRECT115_DRY_RUN` / `MEDIA_DIR` / `STRM_BASE_URL` / `U115_PENDING_CID` 不再生效。
+- 启动自检新增「CMS 入库」检查项；未配置时置红。
+- compose、README、TUTORIAL、文档页、首页同步改为 CMS 单一路线。
+- 删除临时调试路由 `/api/_log`。
+
+### 升级提示
+
+- 旧部署若使用 `TRANSFER_BACKEND=115direct`，升级前请先部署并配好 CMS；升级后内置直转不可用。
+- `./media:/media` 挂载不再需要；115 Cookie 仅用于可选的「关键词分流」。
+
+## v2.2.0 — 2026-11-07
+
+### 无 CMS 路线补齐 strm 与 Emby 刷新（已于 2.3.0 移除）
+
+- 内置直连（`TRANSFER_BACKEND=115direct`）转存后自动生成 `.strm`：电影写 `4K电影/<目录>/`，剧集写 `剧集/<目录>/Season xx/`。
+- 文件夹型分享会递归列出其中的视频文件，逐个生成 strm（最多 4 层）。
+- strm 内容指向面板的 `/strm/play/<pickcode>`：播放时用 Cookie 现换 115 直链并 302，115 签名直链过期不会让媒体库里的 strm 失效。
+- 生成 strm 后自动 `POST /emby/Library/Refresh` 通知 Emby 扫描；未配置 `EMBY_URL` / `EMBY_API_KEY` 时跳过。
+- 新增配置项 `MEDIA_DIR`（strm 输出目录，默认 `/media`）与 `STRM_BASE_URL`（Emby 能访问到的面板地址），设置页可改。
+- 修复 `/api/direct115/preview` 读取待整理列表的字段（`n` / `fid` / `pc`），并支持按 fid 自动补 pickcode。
+- compose 增加 `./media:/media` 挂载与路线 B 的完整环境变量示例。
+
+### 说明
+
+- 路线 B 的播放依赖面板在线；115 Cookie 过期时播放会 502，重新扫码即可。
+- 镜像与文档版本统一到 `2.2.0`；`package.json` 的 license 字段改为 `SEE LICENSE IN LICENSE`。
+
 ## v2.1.0 — 2026-11-07
 
 ### 授权

@@ -36,27 +36,16 @@
 | PREFER_COMPLETE_SERIES | true | 优先整季/合集 |
 | REJECT_CAM | true | 剔除枪版 |
 
-## 入库后端（二选一）
+## 入库后端（CMS，必填）
 
-| 变量 | 默认值 | 说明 |
-|---|---|---|
-| TRANSFER_BACKEND | cms | cms（模式 A）或 115direct（模式 B） |
-
-### 模式 A · CMS
+FilmShelf 只对接 CMS。未配置 CMS 时转存接口会直接报错。
 
 | 变量 | 默认值 | 说明 |
 |---|---|---|
 | CMS_ENABLED | true | 是否启用 |
 | CMS_BASE_URL | 空 | 例 http://10.0.0.5:9527（必填） |
-| CMS_API_TOKEN | cloud_media_sync | CMS API token |
+| CMS_API_TOKEN | cloud_media_sync | CMS API token（必填） |
 | CMS_TIMEOUT_MS | 60000 | 转存超时 |
-
-### 模式 B · 直连 115
-
-| 变量 | 默认值 | 说明 |
-|---|---|---|
-| DIRECT115_DRY_RUN | 1 | 1=只接收+规划，不移动文件；确认规划无误后设 0 才会真正整理 |
-| U115_PENDING_CID | 空 | 待整理目录 cid；留空自动用 115 的「最近接收」 |
 
 ## 115
 
