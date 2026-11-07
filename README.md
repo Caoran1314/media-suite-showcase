@@ -30,20 +30,30 @@ media-suite 把这些动作收进一个面板：**搜到 → 一键转存 → �
 ## 界面
 
 <p align="center">
-  <img src="docs/screenshots/01-overview-dark.png" alt="概览" width="880"><br>
-  <sub>概览：服务状态、媒体统计、订阅进度、最近事件</sub>
+  <img src="docs/screenshots/01-overview.png" alt="概览" width="880"><br>
+  <sub>概览：服务状态、媒体统计、订阅进度</sub>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/02-subscriptions.png" alt="订阅" width="440">
-  <img src="docs/screenshots/04-candidates.png" alt="候选" width="440"><br>
-  <sub>订阅列表与候选资源：评分、体积、清晰度一眼可见</sub>
+  <img src="docs/screenshots/02-discover.png" alt="发现" width="440">
+  <img src="docs/screenshots/03-subscriptions.png" alt="我的订阅" width="440"><br>
+  <sub>发现：TMDB 热门与筛选；我的订阅：海报墙、追更与候选入口</sub>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/05-light-theme.png" alt="浅色主题" width="440">
-  <img src="docs/screenshots/07-mobile-dark.png" alt="移动端" width="220"><br>
-  <sub>深色 / 浅色主题，手机浏览器可用</sub>
+  <img src="docs/screenshots/04-detail.jpg" alt="详情" width="440">
+  <img src="docs/screenshots/05-license.png" alt="授权" width="440"><br>
+  <sub>影视详情与演职人员；授权页：永久版 ¥66、免费额度一目了然</sub>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/07-landing.png" alt="产品首页" width="880"><br>
+  <sub>产品首页：说个片名，它去找、去挑、去入库</sub>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/06-mobile.png" alt="移动端" width="260"><br>
+  <sub>手机浏览器同样可用</sub>
 </p>
 
 ## 功能
