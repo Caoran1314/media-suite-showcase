@@ -15,7 +15,7 @@
 
 ### 转存路线
 
-- 明确两条路线：A = Cloud Media Sync（可选），B = 内置直连 115（`TRANSFER_BACKEND=direct115`）。
+- 明确两条路线：A = Cloud Media Sync（可选），B = 内置直连 115（`TRANSFER_BACKEND=115direct`）。
 - README 依赖表与 FAQ 同步更新：115 网盘为必需，CMS 仅为路线 A 的可选项。
 
 ## v2.0.0 — 2026-11-07
@@ -27,19 +27,17 @@
 ### 修复
 
 - **改密码立即生效**：动态会话密钥 + 保存后同步缓存；改密后当前会话自动续签，不再需要重启容器。
-- **用户版 /api/whoami 404**：whoami 移出作者标记块，用户构建保留。
+- **/api/whoami 404**：接口已正常返回。
 - **设置无法清空**：非密钥配置允许空值（清空=恢复运行期默认）；密钥字段仍忽略空值防误清。
 - **卡密兑换体验**：授权页支持直接粘贴 FS- 卡密，自动兑换并激活。
 
 ### 新增
 
 - 单元测试：tests/auth.test.js、tests/config.test.js（5 个用例）。
-- 用户构建剔除内部文档（FEEDBACK / PROGRESS / GROWTH / TEST-REPORT）。
 
 ### 优化
 
-- 用户版空态文案补充内置 TG115 说明，不再只引导 pansou。
-- 双版本测试报告：docs/TEST-REPORT-2026-11-07.md。
+- 空态文案补充内置 TG115 说明，不再只引导 pansou。
 ## v1.1.6 — 2026-10-25
 
 ### 优化

@@ -114,13 +114,13 @@
 | MP_USERNAME / MP_PASSWORD | admin / 空 | MP 账号 |
 | MP_TIMEOUT_MS | 20000 | 超时 |
 
-## 授权 / 发卡
+## 授权 / 兑换
 
 | 变量 | 默认值 | 说明 |
 |---|---|---|
-| LICENSE_API | 空 | 发卡服务地址（面板下单、卡密兑换都走它） |
+| LICENSE_API | 空 | 授权服务地址（面板下单、卡密兑换都走它） |
 | LICENSE_SERVER | 空 | 心跳上报地址，一般与 LICENSE_API 相同 |
-| LICENSE_ADMIN_TOKEN | 空 | 机器人调发卡服务管理接口用 |
+| LICENSE_ADMIN_TOKEN | 空 | 机器人调授权服务管理接口用 |
 | LICENSE_ADMIN_CHATS | 空 | 允许用授权指令的 TG/飞书会话 |
 | LICENSE_PUBLIC_KEY | 空 | 离线验签公钥；不填则读 data/license-public.pem |
 
