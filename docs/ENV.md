@@ -55,13 +55,14 @@
 
 | 变量 | 默认值 | 说明 |
 |---|---|---|
-| DIRECT115_DRY_RUN | 1 | 1=只生成计划不移动文件（阶段 3 完成前保持 1） |
+| DIRECT115_DRY_RUN | 1 | 1=只接收+规划，不移动文件；确认规划无误后设 0 才会真正整理 |
+| U115_PENDING_CID | 空 | 待整理目录 cid；留空自动用 115 的「最近接收」 |
 
 ## 115
 
 | 变量 | 默认值 | 说明 |
 |---|---|---|
-| U115_COOKIE_FILE | /app/cookie.txt | cookie 文件路径（必填，需挂载进容器） |
+| U115_COOKIE_FILE | /data/cookie.txt | 115 cookie 文件路径（扫码后自动写入；/data 需持久化） |
 | U115_ROUTING_ENABLED | true | 是否启用关键词分流 |
 | U115_ROUTE_INTERVAL_MS | 60000 | 分流扫描间隔 |
 | U115_RPS | 2.5 | 115 请求速率上限（防限流） |

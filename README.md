@@ -53,7 +53,7 @@ media-suite 把这些动作收进一个面板：**搜到 → 一键转存 → �
 | 发现 | TMDB 聚合热门/即将上映；搜片名直接出资源候选 |
 | 订阅 | 电影/剧集订阅，自动追更，候选按评分/体积/清晰度排序 |
 | 转存 | Cloud Media Sync（路线 A）或内置直连 115（路线 B） |
-| 入库 | 自动命名、生成 strm、通知 Emby 刷新 |
+| 入库 | 路线 A：CMS 自动命名、生成 strm、刷新 Emby；路线 B：整理进 115（strm 需自备） |
 | 用户 | Emby 开号、续期、禁用、删除、媒体库权限 |
 | 卡密 | 生成/导出卡密，买家自助兑换开通 |
 | 监控 | 正在播放、播放统计、同播检测（告警/踢下线） |
@@ -88,7 +88,7 @@ docker compose up -d
 ## 两条转存路线
 
 - **路线 A（可选）**：Cloud Media Sync 负责转存、整理、strm、Emby 刷新，media-suite 只做调度。
-- **路线 B**：不装 CMS，`TRANSFER_BACKEND=direct115` + 115 Cookie，由内置直连完成转存并生成 strm。
+- **路线 B**：不装 CMS，`TRANSFER_BACKEND=115direct` + 115 Cookie，由内置直连完成转存并整理进 115 目录；**不生成 strm**，Emby 需要自行挂载 115。完整步骤见 [docs/TUTORIAL.md](docs/TUTORIAL.md)。
 
 115 网盘两条路线都需要；CMS 只是路线 A 的组件。
 
